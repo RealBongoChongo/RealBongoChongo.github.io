@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" src="style.css">
+    <div id="messagebox">
+        
+    </div>
+    <input id="inputbox" type="text" placeholder="Message"><button onclick="sendmessage()">-></button>
+    <script>
+        fs = require('fs');
+        var name = 'Messages.json';
+        var lastm = [];
+        var name = Math.floor(Math.random() * (100 - 0) + 0);
+        
+        function start() {
+            while (true) {
+                var m = JSON.parse(fs.readFileSync(name));
+                var messages = m["messages"]
+                if (messages != lastm) {
+                    var mbox = document.getElementById("messagebox")
+                    messages.forEach(function(obj, index) {
+                        mbox.innerHTML += `${obj["author"]}: ${obj["content"]}`
+                    })
+                }
+                lastm = messages
+            }
+        }
+        
+        function sendmessage() {
+            input = document.getElementById("inputbox").value
+            var m = JSON.parse(fs.readFileSync(name));
+            var messages = m["messages"]
+            messages.push({"author": name.toString(), "content": input})
+            input = ""
+            fs.writeFileSync(name, JSON.stringify(messages));
+        }
+        start()
+    </script>
+</html>
