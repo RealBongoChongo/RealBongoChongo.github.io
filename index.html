@@ -1,38 +1,1190 @@
-<!DOCTYPE html>
-<html>
-    <link rel="stylesheet" src="style.css">
-    <div id="messagebox">
+<head>
+    <style>
+        body {
+            background-color: #202225;
+            height: 100%;
+            font-family: Tahoma;
+            margin: 0px;
+        }
+        ::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background-color: #292b2f;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            margin:10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #202225;
+            border-radius: 20px;
+        }
         
-    </div>
-    <input id="inputbox" type="text" placeholder="Message"><button onclick="sendmessage()">-></button>
+        button {
+            cursor: pointer;
+            box-shadow: 2px 5px 0px 0px rgb(0,0,0);
+        }
+        
+        button:hover {
+            background-color:#949494;
+            transition: 0.2s;
+        }
+        
+        button:active {
+            box-shadow: 0px 0px 0px 0px rgb(0,0,0);
+            transition: 0.2s;
+        }
+        
+        .sidebar {
+            width: 5%;
+            height: 100%;
+            float: left;
+        }
+        
+        .wrapper {
+            margin-top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .login-wrapper {
+            width: 50%;
+            height: 50%;
+            left: 25%;
+            top: 25%;
+            position: absolute;
+        }
+        
+        .register-wrapper {
+            width: 50%;
+            height: 50%;
+            left: 25%;
+            top: 25%;
+            position: absolute;
+            display: none;
+        }
+        
+        .admin-wrapper {
+            width: 50%;
+            height: 50%;
+            left: 25%;
+            top: 25%;
+            position: absolute;
+            display: none;
+        }
+        
+        .channel-list {
+            background-color: #2f3135;
+            width: 16%;
+            height: 100%;
+            float: left;
+        }
+        
+        .server-name {
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap; 
+            overflow: hidden;
+            height: 6%;
+            box-shadow: 0px 2px rgba(0,0,0,0.5);
+        }
+
+        .server-name:hover {
+            background-color: #42464d;
+        }
+        
+        .channels {
+            height: 89%;
+        }
+        
+        .channel {
+            border-radius: 5px;
+            background-color: #2f3135;
+            width: 90%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 5%;
+            margin-left: 5%;
+            margin-top: 5.1px;
+            color: #8d9297;
+            text-decoration: none;
+            float: left;
+        }
+        
+        .channel-button {
+            width: auto;
+            vertical-align: middle;
+            color: #8d9297;
+            text-decoration: none;
+            float: left;
+        }
+        
+        .selected {
+            background-color: #42464d;
+        }
+        
+        .selected-text {
+            color: white;
+        }
+        
+        .pinged-text {
+            color: red;
+        }
+
+        .category-button {
+            width: auto;
+            font-size: 12px;
+            vertical-align: middle;
+            color: #8d9297;
+            text-decoration: none;
+            float: left;
+        }
+
+        .category {
+            border-radius: 5px;
+            background-color: #2f3135;
+            width: 90%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 5%;
+            margin-left: 5%;
+            margin-top: 5.1px;
+            color: #8d9297;
+            text-decoration: none;
+            float: left;
+        }
+        
+        .channel:hover {
+            background-color: #42464d;
+        }
+        
+        .category:hover {
+            background-color: #42464d;
+        }
+        
+        a {
+            margin-left: 5px;
+        }
+        
+        .member-list {
+            background-color: #2f3135;
+            width: 16%;
+            height: 100%;
+            float: right;
+        }
+        
+        .member-channel {
+            height: 6%;
+            padding-left: 10px;
+            background-color: #35393f;
+            box-shadow: 0px 2px rgba(0,0,0,0.5);
+            font-size: 25px;
+            color: white;
+        }
+        
+        .message-box {
+            width: 63%;
+            height: 100%;
+            background-color: #35393f;
+            float: left;
+        }
+        
+        .profile {
+            height: 5%;
+            width: 100%;
+            bottom: 0px;
+            background-color: #292b2f;
+        }
+        
+        .message-channel {
+            height: 6%;
+            width: 100%;
+            background-color: #35393f;
+            box-shadow: 0px 2px rgba(0,0,0,0.5);
+        }
+        
+        .message-area {
+            height: 86.5%;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        .text-area {
+            height: 5%;
+            width: 95%;
+            margin-left: 2.5%;
+            background-color: #42464d;
+            border-radius: 5px;
+            position:relative;
+        }
+        
+        .box-message {
+            background-color: rgba(0,0,0,0);
+            border-radius: 30px;
+            height: 90%;
+            width: 90%;
+            padding:0;
+            padding-left: 2%;
+            margin-top:1%;
+            margin-bottom:1%;
+            border-width: 0px;
+            color: white;
+            resize: none;
+            position:absolute;
+            left: 0px;
+            font-family: Tahoma;
+        }
+
+        .box-message:focus {
+            outline:none;
+        }
+        
+        .send-message {
+            color: white;
+            background-color: #5864f1;
+            box-shadow: none;
+            border-radius: 10px;
+            margin-right: 2%;
+            height: 85%;
+            aspect-ratio: 1/1;
+            position:absolute;
+            margin-top:0.3%;
+            right:0px;
+        }
+        
+        .message {
+            width: 97.5%;
+            height: auto;
+            margin-left: 1.25%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .username {
+            cursor: pointer;
+            height: auto;
+            margin-top: 5px;
+            margin-left: 5px;
+            font-size: 15px;
+            color: #ffffff;
+            box-shadow: 0px 0px 0px 0px rgb(0,0,0);
+            background-color: rgba(0,0,0,0);
+        }
+
+        .username:hover {
+            cursor: pointer;
+            background-color: rgba(0,0,0,0);
+        }
+
+        .username:active {
+            cursor: pointer;
+            background-color: rgba(0,0,0,0);
+        }
+
+        .guild-icon {
+            cursor: pointer;
+            height: auto;
+            margin-top: 5px;
+            margin-left: 5%;
+            width: 90%;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0px 0px 0px 0px rgb(0,0,0);
+            background-color: #42464d;
+            border-radius: 50%;
+            color:white;
+            word-wrap: break-word;
+            font-size: 12px;
+            transition: border-radius 0.5s;
+        }
+
+        .guild-icon:hover {
+            cursor: pointer;
+            background-color: #42464d;
+            border-radius: 35%;
+        }
+
+        .guild-icon:focus {
+            cursor: pointer;
+            background-color: #42464d;
+            border-radius: 35%;
+        }
+        
+        .username-time {
+            color: #808080;
+            font-size: 10px;
+        }
+        
+        .message-text {
+            width: 100%;
+            word-wrap: break-word;
+            height: auto;
+            color: white;
+            margin-left: 5px;
+            font-size: 12px;
+            margin-top: 2.5px;
+        }
+        
+        .profile-picture {
+            height:30px;
+            width:30px;
+            margin-top: 5px;
+            float:left;
+            border-radius:50%;
+        }
+        
+        .user-changer {
+            margin-left: 5%;
+            border-radius: 10px;
+            width: 100%;
+            height: 50%;
+            color: white;
+        }
+        
+        .login-content {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            float: left;
+        }
+        
+        .login-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #35393f;
+        }
+
+        .login-input {
+            margin-left: 5px;
+            float: left;
+            border-radius: 10px;
+            width: 80%;
+            height: 8%;
+            color: white;
+        }
+        
+        .register-input {
+            margin-left: 5px;
+            float: left;
+            border-radius: 10px;
+            width: 80%;
+            height: 8%;
+            color: white;
+        }
+        
+        .admin-input {
+            margin-left: 5px;
+            float: left;
+            border-radius: 10px;
+            width: 80%;
+            height: 8%;
+            color: white;
+        }
+        
+        .login-text {
+            color: white;
+            font-size: 12px;
+            margin-left: 7px;
+        }
+        
+        .login-button {
+            width: 80%;
+            height: 10%;
+            background-color: #5864f1;
+            border-radius: 10px;
+            color: white;
+            margin-left: 5px;
+        }
+        
+        .register-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #35393f;
+        }
+        
+        .admin-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #35393f;
+        }
+        
+        .online-container {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 5px;
+            background-color: #2f3135;
+            float: left;
+        }
+        
+        .online-text {
+            margin-left: 5px;
+            width: auto;
+            margin-right: 5px;
+            text-overflow: ellipsis;
+            white-space: nowrap; 
+            overflow: hidden;
+            height: auto;
+        }
+        
+        button {
+            border-width: 0px;
+        }
+        
+        input {
+            border-width: 0px;
+            background-color: #292b2f;
+            padding-left: 10px;
+        }
+        
+        input:focus {
+            outline: none;
+        }
+    </style>
+    <title>Home</title>
+    <link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script>
-        fs = require('fs');
-        var name = 'Messages.json';
-        var lastm = [];
-        var name = Math.floor(Math.random() * (100 - 0) + 0);
-        
-        function start() {
-            while (true) {
-                var m = JSON.parse(fs.readFileSync(name));
-                var messages = m["messages"]
-                if (messages != lastm) {
-                    var mbox = document.getElementById("messagebox")
-                    messages.forEach(function(obj, index) {
-                        mbox.innerHTML += `${obj["author"]}: ${obj["content"]}`
-                    })
+        window.onload = function() {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBpzWLJhsVARyyZPkoclbliVGL7X7FwtwM",
+                    authDomain: "discord-funny.firebaseapp.com",
+                    projectId: "discord-funny",
+                    storageBucket: "discord-funny.appspot.com",
+                    messagingSenderId: "832907871549",
+                    appId: "1:832907871549:web:5cda7ff849439e18473154",
+                    measurementId: "G-2Q61G8ZLXH"
+                };
+                firebase.initializeApp(firebaseConfig)
+                var db = firebase.database();
+
+                function toDateTime(secs) {
+                    var t = new Date(3600000); // Epoch
+                    t.setSeconds(secs);
+                    return t;
                 }
-                lastm = messages
-            }
+                
+                class chatter {
+                    refresh_channels() {
+                        db.ref(`guilds/${localStorage.getItem("guild")}/channels`).once("value", function(channelObject) {
+                            var channelObject = channelObject.val()
+                            var channelList = document.getElementById("channel-list")
+
+                            channelList.innerHTML = ""
+                            channelList.innerHTML += `<div class="category"><a class="category-button">TEXT CHANNELS</a></div>`
+                            
+                            for (const [channelId, channelData] of Object.entries(channelObject)) {
+                                var channelButton = document.createElement("div")
+                                if (localStorage.getItem("channel") === channelId) {
+                                    var channelClass = "channel selected"
+
+                                    document.getElementById("messageareachannel").innerHTML = `# ${channelData["name"]}`
+                                } else {
+                                    var channelClass = "channel"
+                                }
+                                channelButton.setAttribute("class", channelClass)
+
+                                channelButton.addEventListener("click", function(e) {
+                                    localStorage.setItem("channel", channelId)
+                                    window.location.reload()
+                                })
+
+                                channelButton.innerHTML = `<a class="channel-button"><b>#</b> ${channelData["name"]}</a>`
+
+                                channelList.appendChild(channelButton)
+                            }
+                        })
+                    }
+
+                    refresh_chat() {
+                        db.ref(`guilds/${localStorage.getItem("guild")}`).once("value", function(guildObject) {
+                            var guildObject = guildObject.val()
+                            
+                            document.getElementById("server-name").innerHTML = guildObject["name"]
+                        })
+
+                        db.ref(`guilds/${localStorage.getItem("guild")}/channels/${localStorage.getItem("channel")}`).on("value", function(channelData) {
+                            var textarea = document.getElementById('textarea')
+                            textarea.innerHTML = ""
+                            var channelObj = channelData.val()
+
+                            var messageData = Object.entries(channelObj.messages)
+                            for (const [messageId, messageContent] of messageData) {
+                                var timestamp = toDateTime(Number(messageContent["timestamp"]) / 1000)
+                                var dateNow = new Date(Date.now())
+                                var minutes = null
+                                var hours = null
+                                var pm = "AM"
+                                try {
+                                    var preset = ""
+                                    if (dateNow.getDay() === timestamp.getDay() && dateNow.getMonth() === timestamp.getMonth() && dateNow.getYear() === timestamp.getYear()) {
+                                        preset = " Today at "
+                                    } else {
+                                        preset = ` ${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()} `
+                                    }
+                                    if (timestamp.getMinutes() < 10) {
+                                        minutes = "0" + timestamp.getMinutes()
+                                    } else {
+                                        minutes = timestamp.getMinutes()
+                                    }
+                                    
+                                    if (timestamp.getHours() > 12) {
+                                        hours = timestamp.getHours() - 12
+                                        pm = "PM"
+                                    } else {
+                                        hours = timestamp.getHours()
+                                    }
+
+                                    var messageElement = document.createElement("div")
+                                    messageElement.setAttribute("class", "message")
+                                    
+                                    textarea.appendChild(messageElement)
+
+                                    var pfp = document.createElement("img")
+                                    pfp.src = 'https://c.tenor.com/pMhSj9NfCXsAAAAd/saul-goodman-better-call-saul.gif'
+                                    pfp.setAttribute("class", "profile-picture")
+                                    messageElement.appendChild(pfp)
+                                    
+                                    var userElement = document.createElement("button")
+                                    userElement.setAttribute("class", "username")
+                                    userElement.setAttribute("id", messageId)
+                                    userElement.setAttribute("data-timestamp", messageContent["timestamp"])
+                                    userElement.onclick = function() {
+                                        var usernameElement = document.getElementById(messageId)
+                                        var timestamp = toDateTime(Number(usernameElement.getAttribute("data-timestamp")) / 1000)
+                                        var dateNow = new Date(Date.now())
+                                        var minutes = null
+                                        var hours = null
+                                        var pm = "AM"
+
+                                        var preset = ""
+                                        if (dateNow.getDay() === timestamp.getDay() && dateNow.getMonth() === timestamp.getMonth() && dateNow.getYear() === timestamp.getYear()) {
+                                            preset = ` Today at `
+                                        } else {
+                                            preset = ` ${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()} `
+                                        }
+                                        if (timestamp.getMinutes() < 10) {
+                                            minutes = "0" + timestamp.getMinutes()
+                                        } else {
+                                            minutes = timestamp.getMinutes()
+                                        }
+                                        
+                                        if (timestamp.getHours() > 12) {
+                                            hours = timestamp.getHours() - 12
+                                            pm = "PM"
+                                        } else {
+                                            hours = timestamp.getHours()
+                                        }
+
+                                        usernameElement.innerHTML = messageContent["displayName"] + " (@" + messageContent["author"] + ")" + `<b class='username-time'>${preset + hours + ":" + minutes + " " + pm}</b>`
+                                    }
+                                    userElement.innerHTML = messageContent["displayName"] + `<b class='username-time'>${preset + hours + ":" + minutes + " " + pm}</b>`
+                                } catch(err) {
+                                    alert(err)
+                                }
+                                userElement.style.fontWeight = "bold"
+
+                                messageElement.appendChild(userElement)
+
+                                var messageContentElement = document.createElement("div")
+                                messageContentElement.setAttribute("class", "message-text")
+                                messageContentElement.style.whiteSpace = "pre-wrap"
+                                function isImage(url) {
+                                    return url.match(/<img/)
+                                }
+                                if (isImage(messageContent["content"])) {
+                                    messageContentElement.innerHTML = messageContent["content"]
+                                } else if (messageContent["image"] === true) {
+                                    var image = document.createElement("img")
+                                    image.src = messageContent["content"]
+                                    messageContentElement.appendChild(image)
+                                } else {
+                                    messageContentElement.innerText = messageContent["content"]
+                                }
+                                if (messageContent["content"].includes("@" + localStorage.getItem('username'))) {
+                                    messageContentElement.style.backgroundColor = "#49443b"
+                                }
+
+                                messageElement.appendChild(messageContentElement)
+                            }
+
+                            setTimeout(() => {
+                                textarea.scrollTop = textarea.scrollHeight
+                            }, 150);
+                        })
+                    }
+                    
+                    send_server_message(message) {
+                        try {
+                            var textarea = document.getElementById("textarea")
+                            var message = message
+                            var username = "[SERVER]"
+                            if (message == "" || username == "") {
+                                return
+                            } else if (message == "sos") {
+                                window.location.replace("https://classroom.google.com")
+                                return
+                            } else {
+                                db.ref('chats/'+localStorage.getItem("channel")+"/").once('value', function(message_object) {
+                                    var index = parseFloat(message_object.numChildren()) + 1
+                                    db.ref('chats/' +localStorage.getItem("channel")+"/" + `message_${index}`).set({
+                                        name: "[SERVER]",
+                                        message: message,
+                                        display_name: "[SERVER]",
+                                        index: index,
+                                        timestamp: Math.floor(Date.now())
+                                    })
+                                })
+                            }
+                        } catch(err) {
+                            alert(err)
+                        }
+                    }
+                    
+                    check_creds() {
+                        if ((localStorage.getItem("email") === null || localStorage.getItem("password") === null || localStorage.getItem("username") === null)) {
+                            var main = document.getElementById("main")
+                            var login = document.getElementById("login")
+                            localStorage.clear()
+                        } else if (firebase.auth().currentUser) {
+                            var main = document.getElementById("main")
+                            var login = document.getElementById("login")
+                            main.style.display = "block"
+                            login.style.display = "none"
+                            return true
+                        } else {
+                            firebase.auth().signInWithEmailAndPassword(localStorage.getItem("email"), localStorage.getItem("password"))
+                                .then((creds) => {
+                                    var main = document.getElementById("main")
+                                    var login = document.getElementById("login")
+                                    main.style.display = "block"
+                                    login.style.display = "none"
+                                    return true
+                                })
+                                .catch((error) => {
+                                    var main = document.getElementById("main")
+                                    var login = document.getElementById("login")
+                                    localStorage.clear()
+                                    window.location.reload()
+                                })
+                        }
+                    }
+                    
+                    send_message() {
+                        try {
+                            var textarea = document.getElementById("textarea")
+                            var message = document.getElementById("text-box").value
+                            var username = localStorage.getItem('username')
+                            var password = localStorage.getItem('password')
+                            var email = localStorage.getItem("email")
+                            
+                            this.check_creds()
+                            
+                            if (username == null) {
+                                return
+                            }
+                            
+                            if (message == "" || username == "") {
+                                return
+                            } else if (message == "sos") {
+                                window.location.replace("https://classroom.google.com")
+                                return
+                            } else if (message.startsWith("!mute ")) {
+                                if (username == "god") {
+                                    var muted_user = message.substring(6)
+                                    db.ref("users/" + muted_user).once('value', function(user_object) {
+                                        if (user_object.exists() == false) {
+                                            alert("User cannot be muted, " + muted_user + " does not exist!")
+                                            return
+                                        }
+                                        db.ref('chats/').once('value', function(message_object) {
+                                            var index = parseFloat(message_object.numChildren()) + 1
+                                            db.ref('chats/' +localStorage.getItem("channel")+"/" + `message_${index}`).set({
+                                                name: "[SERVER]",
+                                                message: "Muted " + muted_user,
+                                                display_name: "[SERVER]",
+                                                index: index
+                                            })
+                                        })
+                                    })
+                                }
+                            } else if (message.startsWith("!unmute ")) {
+                                if (username == "god") {
+                                    var unmuted_user = message.substring(8)
+                                    db.ref("users/" + unmuted_user).once('value', function(user_object) {
+                                        if (user_object.exists() == false) {
+                                            alert("User cannot be unmuted, " + unmuted_user + " does not exist!")
+                                            return
+                                        }
+                                        db.ref('chats/').once('value', function(message_object) {
+                                            var index = parseFloat(message_object.numChildren()) + 1
+                                            db.ref('chats/' +localStorage.getItem("channel")+"/" + `message_${index}`).set({
+                                                name: "[SERVER]",
+                                                message: "Unmuted " + unmuted_user,
+                                                display_name: "[SERVER]",
+                                                index: index
+                                            })
+                                        })
+                                        db.ref("users/" + unmuted_user).update({
+                                            muted: false
+                                        })
+                                    })
+                                }
+                            }
+                            db.ref("users/" + username).once('value', function(user_object) {
+                                var obj = user_object.val()
+                                var display_name = obj.display_name
+                                document.getElementById("text-box").value = ""
+                                db.ref("data/snowflake").once('value', function(snowflakeObject) {
+                                    var snowflakeNum = snowflakeObject.val()
+
+                                    db.ref(`guilds/${localStorage.getItem("guild")}/channels/${localStorage.getItem("channel")}/messages/${snowflakeNum}`).set({
+                                        author: username,
+                                        content: message,
+                                        displayName: display_name,
+                                        timestamp: Math.floor(Date.now())
+                                    })
+
+                                    db.ref(`data/snowflake`).set(snowflakeNum + 1)
+                                })
+                            })
+                        } catch(err) {
+                            alert(err)
+                        }
+                    }
+                    
+                    get_name() {
+                        if (firebase.auth().currentUser) {
+                            return localStorage.getItem("username")
+                        } else {
+                            return null
+                        }
+                    }
+
+                    update_name() {
+                        if (!localStorage.getItem("channel")) {
+                            localStorage.setItem("channel", "2")
+                        }
+                        if (!localStorage.getItem("guild")) {
+                            localStorage.setItem("guild", "1")
+                        }
+                        this.check_creds()
+
+                        db.ref('users/' + localStorage.getItem("username")).update({
+                            online: true
+                        })
+                        db.ref('users/' + localStorage.getItem("username")).onDisconnect().update({
+                            online: false
+                        })
+                        db.ref("users/" + localStorage.getItem("username")).once('value', function(user_object) {
+                            var obj = user_object.val()
+                            var display_name = obj.display_name
+                            localStorage.setItem("display", display_name)
+                            document.getElementById("userdisplay").innerHTML = display_name + ` (@${localStorage.getItem("username")})`
+                            db.ref("users/" + localStorage.getItem("username")).on('value', function(user_object) {
+                                var obj = user_object.val();
+                                if (!(obj.online)) {
+                                    db.ref('users/' + localStorage.getItem("username")).update({
+                                        online: true
+                                    })
+                                }
+                                document.getElementById("server-list").innerHTML = ""
+                                var indexOn = 0
+                                obj.guilds.forEach((guildId, index, array) => {
+                                    db.ref(`guilds/${guildId}`).once("value", function(guild_object) {
+                                        var guildObject = guild_object.val()
+                                        var guildName = guildObject.name.split(" ")
+                                        var initials = ""
+
+                                        for (var i = 0; i < guildName.length; i++) {
+                                            initials = `${initials}${guildName[i][0]}`
+                                        }
+
+                                        var guildElement = document.createElement("button")
+                                        guildElement.setAttribute("class", "guild-icon")
+                                        guildElement.setAttribute("id", guildId)
+                                        guildElement.setAttribute("data-guildId", guildId)
+                                        guildElement.setAttribute("data-channelId", guildId + 1)
+                                        guildElement.innerHTML = initials
+
+                                        guildElement.onclick = function() {
+                                            var guildElementFull = document.getElementById(guildId)
+                                            localStorage.setItem("guild", guildElementFull.getAttribute("data-guildId"))
+                                            localStorage.setItem("channel", guildElementFull.getAttribute("data-channelId"))
+                                            window.location.reload()
+                                        }
+
+                                        document.getElementById("server-list").appendChild(guildElement)
+                                        indexOn++
+                                        if (indexOn === obj.guilds.length) {
+                                            var guildElement = document.createElement("button")
+                                            guildElement.setAttribute("class", "guild-icon")
+                                            guildElement.innerHTML = "+"
+
+                                            guildElement.onclick = function() {
+                                                var serverName = prompt("Create a server name:")
+                                                db.ref("data/snowflake").once("value", function(snowflakeObject) {
+                                                    var snowflakeNum = snowflakeObject.val()
+                                                    var genId = snowflakeNum + 1
+                                                    var serverObj = {   
+                                                        name: serverName,
+                                                        owner: localStorage.getItem("email"),
+                                                        channels: {}
+                                                    }
+                                                    serverObj["channels"][genId] = {
+                                                        name: "general",
+                                                        messages: {}
+                                                    }
+                                                    db.ref(`guilds/${snowflakeNum}`).set(serverObj).then(() => {
+                                                        db.ref("data/snowflake").set(snowflakeNum + 2)
+                                                    })
+
+                                                    obj.guilds.push(snowflakeNum)
+                                                    db.ref("users/" + localStorage.getItem("username")).update({
+                                                        guilds: obj.guilds
+                                                    })
+
+                                                    localStorage.setItem("guild", snowflakeNum)
+                                                    localStorage.setItem("channel", genId)
+                                                    window.location.reload()
+                                                })
+                                            }
+
+                                            document.getElementById("server-list").appendChild(guildElement)
+                                        }
+                                    })
+                                })
+                            })
+                            db.ref('users/').on('value', function(user_object) {
+                                var users = Object.values(user_object.val());
+                                var memlist = document.getElementById("member-list")
+                                db.ref(`guilds/${localStorage.getItem("guild")}/channels`).once("value", function(channelObject) {
+                                    var channelObject = channelObject.val()
+                                    for (const [channelId, channelData] of Object.entries(channelObject)) {
+                                        if (localStorage.getItem("channel") === channelId) {
+                                            memlist.innerHTML = `<div class='member-channel' id='member-list'></div>`
+                                        }
+                                    }
+
+                                    for (var i, i = 0; i < users.length; i++) {
+                                        if (users[i].online == true && !(users[i].username == undefined) && users[i].guilds.includes(Number(localStorage.getItem("guild")))) {
+                                            var container = document.createElement("div")
+                                            container.setAttribute("class", "online-container")
+                                            memlist.appendChild(container)
+                                            
+                                            var text = document.createElement("div")
+                                            text.setAttribute("class", "online-text")
+
+                                            var pfp = document.createElement("img")
+                                            pfp.src = 'https://c.tenor.com/pMhSj9NfCXsAAAAd/saul-goodman-better-call-saul.gif'
+                                            pfp.setAttribute("style", "margin-top: 0px; height: 100%; aspect-ratio: 1/1; float:left; border-radius:50%;")
+
+                                            text.appendChild(pfp)
+
+                                            text.innerHTML += `<div style="height:100%; margin-left:10px">${users[i].display_name} (@${users[i].username})</div>`
+                                            if (users[i].muted) {
+                                                text.innerHTML += " [MUTED]"
+                                            }
+                                            if (users[i].username == "god" || users[i].username == "lord of the marksmans") {
+                                                text.style.color = "Red"
+                                            } else if (users[i].username == "blobby (;") {
+                                                text.style.color = "Orange"
+                                            } else {
+                                                text.style.color = "#00ffff"
+                                            }
+                                            container.appendChild(text)
+                                        }
+                                    }
+
+                                    for (var i, i = 0; i < users.length; i++) {
+                                        if (users[i].online == false && !(users[i].username == undefined) && users[i].guilds.includes(Number(localStorage.getItem("guild")))) {
+                                            var container = document.createElement("div")
+                                            container.setAttribute("class", "online-container")
+                                            memlist.appendChild(container)
+                                            
+                                            var text = document.createElement("div")
+                                            text.setAttribute("class", "online-text")
+
+                                            var pfp = document.createElement("img")
+                                            pfp.src = 'https://c.tenor.com/pMhSj9NfCXsAAAAd/saul-goodman-better-call-saul.gif'
+                                            pfp.setAttribute("style", "margin-top: 0px; height: 100%; aspect-ratio: 1/1; float:left; border-radius:50%; opacity: 0.5;")
+
+                                            text.appendChild(pfp)
+
+                                            text.innerHTML += `<div style="height:100%; margin-left:10px">${users[i].display_name} (@${users[i].username})</div>`
+                                            if (users[i].muted) {
+                                                text.innerHTML += " [MUTED]"
+                                            }
+
+                                            text.setAttribute("style", "color: rgb(255,255,255,0.5)")
+                                            
+                                            container.appendChild(text)
+                                        }
+                                    }
+                                })
+                            })
+                            var dash = document.getElementById("userdisplay")
+                            
+                            var logoutbutton = document.createElement("button")
+                            logoutbutton.onclick = logout
+                            logoutbutton.innerHTML = "Logout"
+                            logoutbutton.setAttribute("style", "float: right; margin-right: 15px;")
+                            
+                            dash.appendChild(logoutbutton)
+                            
+                            function logout() {
+                                try {
+                                    firebase.auth().signOut().then(() => {
+                                        localStorage.clear()
+                                        window.location.reload()
+                                    })
+                                } catch(err) {
+                                    alert(err)
+                                }
+                            }
+                        })
+                    }
+                    
+                    login() {
+                        try {
+                            var username = document.getElementById("username-login").value
+                            var password = document.getElementById("password-login").value
+
+                            if (username == "" || password == "") {
+                                return
+                            }
+
+                            db.ref("users/" + username).once("value", function(user_object) {
+                                if (user_object.exists()) {
+                                    var email = user_object.val().email
+                                    firebase.auth().signInWithEmailAndPassword(email, password)
+                                        .then((userCred) => {
+                                            localStorage.setItem('email', email)
+                                            localStorage.setItem('username', username)
+                                            localStorage.setItem('password', password)
+                                            window.location.reload()
+                                        })
+                                        .catch((error) => {
+                                            alert(error.message)
+                                        })
+                                }
+                            })
+                        } catch(err) {
+                            alert(err)
+                        }
+                    }
+                    
+                    register() {
+                        try {
+                            var username = document.getElementById("username-register").value
+                            username = username.toLowerCase()
+                            var password = document.getElementById("password-register").value
+                            var email = document.getElementById("email-register").value
+                            var displayName = document.getElementById("display-register").value
+
+                            if (email == "" || username == "" || password == "" || displayName == "" || username == "[SERVER]") {
+                                return
+                            }
+
+                            firebase.auth().createUserWithEmailAndPassword(email, password)
+                                .then((userCreds) => {
+                                    db.ref("users/" + username).set({
+                                        display_name: displayName,
+                                        username: username,
+                                        email: email,
+                                        guilds: [1],
+                                        online: true
+                                    }).then(function() {
+                                        localStorage.setItem('email', email)
+                                        localStorage.setItem('password', password)
+                                        localStorage.setItem("username", username)
+                                        window.location.reload()
+                                    })
+                                })
+                                .catch((error) => {
+                                    alert(error.message)
+                                })
+                        } catch(err) {
+                            alert(err)
+                        }
+                    }
+                    
+                    check_mute() {
+                        this.check_creds()
+
+                        db.ref("users/" + localStorage.getItem("username")).on('value', function(user_object) {
+                            var obj = user_object.val()
+                            if (obj.muted) {
+                                document.getElementById("text-box").disabled = true
+                                document.getElementById("text-box").placeholder = "Muted"
+                            } else {
+                                document.getElementById("text-box").disabled = false
+                                document.getElementById("text-box").placeholder = "Message"
+                            }
+                        })
+                    }
+                    
+                    setup() {
+                        this.check_creds()
+                        this.update_name()
+
+                        document.getElementById('text-box').addEventListener('keydown', function (e) {
+                            const keyCode = e.which || e.keyCode;
+                            if (keyCode === 13 && !e.shiftKey) {
+                                e.preventDefault();
+                            }
+                        });                        
+
+                        document.addEventListener('keydown', event => {
+                            const key = event.key.toLowerCase();
+                            if (document.getElementById("password-login") == document.activeElement) {
+                                if (key == "enter") {
+                                    this.login()
+                                }
+                            }
+                            if (document.getElementById("text-box") == document.activeElement) {
+                                if (key == "enter" && !event.shiftKey) {
+                                    this.send_message()
+                                }
+                            }
+                            if (document.getElementById("admin-password") == document.activeElement) {
+                                if (key == "enter") {
+                                    this.signinadmin()
+                                }
+                            }
+                        })
+                        this.refresh_channels()
+                        this.refresh_chat()
+                        this.check_mute()
+                        var main = document.getElementById("main")
+                        var login = document.getElementById("login")
+                        if (this.get_name() != null) {
+                            main.style.display = "block"
+                            login.style.display = "none"
+                        } else {
+                            main.style.display = "none"
+                            login.style.display = "block"
+                        }
+                        
+                        var send = document.createElement("button")
+                        send.setAttribute("class", "send-message")
+                        send.innerHTML = "->"
+                        send.onclick = this.send_message
+                        document.getElementById("downbar").appendChild(send)
+                        
+                        var element = document.createElement("button")
+                        element.setAttribute("class", "login-button")
+                        element.innerHTML = "Login"
+                        element.onclick = this.login
+                        
+                        var reg = document.createElement("button")
+                        reg.setAttribute("class", "login-button")
+                        reg.innerHTML = "Register"
+                        reg.style.marginTop = "5px"
+                        reg.onclick = regMenu
+                        
+                        function regMenu() {
+                            var register = document.getElementById("register")
+                            register.style.display = "block"
+                            login.style.display = "none"
+                        }
+                        
+                        logincontain.appendChild(element)
+                        logincontain.appendChild(reg)
+                        
+                        var registercontain = document.getElementById("registercontain")
+                        
+                        var regbutton = document.createElement("button")
+                        regbutton.setAttribute("class", "login-button")
+                        regbutton.innerHTML = "Register"
+                        regbutton.onclick = this.register
+                        
+                        registercontain.appendChild(regbutton)
+                    }
+                }
+                
+                var app = new chatter()
+                app.setup()
         }
-        
-        function sendmessage() {
-            input = document.getElementById("inputbox").value
-            var m = JSON.parse(fs.readFileSync(name));
-            var messages = m["messages"]
-            messages.push({"author": name.toString(), "content": input})
-            input = ""
-            fs.writeFileSync(name, JSON.stringify(messages));
-        }
-        start()
     </script>
-</html>
+</head>
+<body>
+    <div class="login-wrapper" id="login">
+        <div class="login-container" id="logincontain">
+            <div class="login-content">
+                <div class="login-text">Username</div>
+                <input class="login-input" type="text" id="username-login" maxlength="40">
+            </div>
+            <div class="login-content">
+                <div class="login-text">Password</div>
+                <input class="login-input" type="password" id="password-login">
+            </div>
+        </div>
+    </div>
+    <div class="register-wrapper" id="register">
+        <div class="register-container" id="registercontain">
+            <div class="login-content">
+                <div class="login-text">Username</div>
+                <input class="register-input" type="text" id="username-register" maxlength="40">
+            </div>
+            <div class="login-content">
+                <div class="login-text">Password</div>
+                <input class="register-input" type="password" id="password-register">
+            </div>
+            <div class="login-content">
+                <div class="login-text">Display Name</div>
+                <input class="register-input" type="text" id="display-register" maxlength="30">
+            </div>
+            <div class="login-content">
+                <div class="login-text">Email</div>
+                <input class="register-input" type="text" id="email-register">
+            </div>
+        </div>
+    </div>
+    <div class="admin-wrapper" id="admin">
+        <div class="admin-container" id="admincontain">
+            <div class="login-content">
+                <div class="login-text">Email</div>
+                <input class="admin-input" type="password" id="admin-email" maxlength="40">
+            </div>
+            <div class="login-content">
+                <div class="login-text">Password</div>
+                <input class="admin-input" type="password" id="admin-password">
+            </div>
+        </div>
+    </div>
+    <div class="wrapper" id="main">
+        <div class="sidebar" id="server-list"></div>
+        <div class="channel-list">
+            <div class="server-name">
+                <b id="server-name"></b>
+            </div>
+            <div class="channels" id="channel-list">
+                <div class="category"><a class="category-button"><b>Text Channels</b></a></div>
+            </div>
+            <div class="profile" id="profile">
+                <div class="user-changer" id="userdisplay"></div>
+            </div>
+        </div>
+        <div class="message-box">
+            <div class="message-channel">
+                <div style="color: white; font-size:24px" id="messageareachannel"></div>
+            </div>
+            <div class="message-area" id="textarea">
+                
+            </div>
+            <div class="text-area" id="downbar">
+                <textarea class="box-message" placeholder="Message" id="text-box" type="text"></textarea>
+            </div>
+        </div>
+        <div class="member-list" id="member-list">
+        </div>
+    </div>
+</body>
