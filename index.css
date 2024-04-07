@@ -26,6 +26,20 @@ header {
     align-items: center;
 }
 
+header::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-image: url("./assets/avatar.png");
+    background-size: cover;
+
+    opacity: 0.2;
+}
+
 section {
     margin-left: 100px;
     margin-right: 100px;
@@ -98,4 +112,8 @@ li {
 
 .wd-3 {
     width: 33%;
+}
+
+.hgt-500 {
+    height: 500px;
 }
