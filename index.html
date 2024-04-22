@@ -136,6 +136,11 @@
     </section>
 
     <script>
+        var time = new Date()
+        if (time.getHours() < 8 && time.getHours() > 5) {
+            window.close()
+        }
+    
         function iterateString(string, html, delay) {
             for (var i = 0; i < string.length; i++) {
                 setTimeout(function(i, length) {
