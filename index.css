@@ -67,6 +67,7 @@ li {
     font-size: 18px;
     color: var(--dark-blue);
     font-style: oblique;
+    margin: 5px;
 }
 
 .main-title {
