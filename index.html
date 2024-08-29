@@ -16,6 +16,7 @@
             <p class="main-title" style="font-size: 20px;" id="fullstack">> Full-Stack Developer,</p>
             <p class="main-title" style="font-size: 20px;" id="discordbot">> Discord Bot Developer,</p>
             <p class="main-title" style="font-size: 20px;" id="robloxgame">> Roblox Game Developer</p>
+            <p class="main-title" style="font-size: 20px;" id="startrek">> Star Trek Enthusiast</p>
             <hr style="margin-left: 100px">
             <p class="main-title" style="font-size: 15px;" id="bio">> Hey I'm Bungo. I am a self-taught programmer and began coding in early 2020 due to the pandemic and I've been continuing that hobby to this day. I know frameworks/databases like MongoDB, SQLite, Bootstrap, jQuery, and I'm learning typescript. I mainly started out coding by writing a Discord bot in Python using a library named discord.py and then started building websites and roblox games. Now, I'm making projects that I hope can improve the quality of life for those who don't want to do the unnecessary extra steps and I'm also making projects that people can interact with and enjoy.</p>
         </div>
@@ -155,7 +156,50 @@
             </div>
         </div>
         <hr>
-
+        <div class="subsection-title wd-1">UFP Bot (06/02/2023-Present)</div>
+        <hr>
+        <div class="container">
+            <div class="subsection-content wd-2">
+                A Discord bot made to compact a LOT of functions that a faction needed in order to provide moderation, a custom afk system, relations, pointlog, ranking, auto-moderation, and much more.
+            </div>
+            <div class="subsection-content wd-2">
+                Stats:
+                <ul>
+                    <li>100+ Users</li>
+                </ul>
+                Information:
+                <ul>
+                    <li>Developer: Me</li>
+                    <li>Scripted in Python</li>
+                    <li>Utilizes OpenAI's API Moderation Endpoint</li>
+                    <li>3,000+ Lines of Code</li>
+                    <li>Currently Being Rewritten</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="subsection-title wd-1">Shipyard Manager (01/11/2024-Present)</div>
+        <hr>
+        <div class="container">
+            <div class="subsection-content wd-2">
+                A discord bot made to streamline my development process by using changelog datastores, patch logs, and custom in-game functions.
+            </div>
+            <div class="subsection-content wd-2">
+                Stats:
+                <ul>
+                    <li>20+ Users</li>
+                </ul>
+                Information:
+                <ul>
+                    <li>Developer: Me</li>
+                    <li>Scripted in Python</li>
+                    <li>Utilizes Roblox's Open Cloud API</li>
+                    <li>500+ Lines of Code</li>
+                    <li>Currently Working On More Discord<>Roblox Integrations</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
         <div class="subsection-title wd-1">ACFC Economy (02/11/2023-Present)</div>
         <hr>
         <div class="container">
@@ -253,6 +297,7 @@
         const fullStack = document.getElementById("fullstack")
         const discordBot = document.getElementById("discordbot")
         const robloxGame = document.getElementById("robloxgame")
+        const startrek = document.getElementById("startrek")
 
         const titleHTML = titleText.textContent
         titleText.textContent = ""
@@ -265,6 +310,8 @@
         discordBot.textContent = ""
         const robloxgameHTML = robloxGame.textContent
         robloxGame.textContent = ""
+        const startrekHTML = startrek.textContent
+        startrek.textContent = ""
 
         var time = 0
 
@@ -278,6 +325,9 @@
                     time = iterateString(discordbotHTML, discordBot, 50)
                     setTimeout(function() {
                         time = iterateString(robloxgameHTML, robloxGame, 50)
+                        setTimeout(function() {
+                            time = iterateString(startrekHTML, startrek, 50)
+                        }, time)
                     }, time)
                 }, time)
             }, time)
