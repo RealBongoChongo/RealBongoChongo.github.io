@@ -39,8 +39,14 @@
             </ul>
         </div>
     </header>
-    <section id="projects">
-        <div class="section-title wd-1">Public Projects:</div>
+    <hr class="selection-border">
+    <div class="selection-box" id="selection-box">
+        <a class="selection-box-button" id="public-projects-button">Public Projects</a>
+        <a class="selection-box-button" id="personal-projects-button">Personal Projects</a>
+        <a class="selection-box-button" id="commissions-button">Commissions</a>
+    </div>
+    <hr class="selection-border">
+    <section id="public-projects">
         <hr>
         <div class="subsection-title wd-1">BreadBot (10/04/2020-03/08/2023)</div>
         <hr>
@@ -82,13 +88,13 @@
                 <ul>
                     <li>Managed Community</li>
                     <li>10+ Daily Users</li>
-                    <li>Orchestrated legal communications with Paramount (DMCA Takedown)</li>
                 </ul>
                 Information:
                 <ul>
                     <li>Developers: Me, <a href="https://www.roblox.com/users/402463945/profile">Myth_Overseer / Kodiak</a></li>
                     <li>Scripted in Luau</li>
                     <li>20,000+ Lines of Code</li>
+                    <li>Taken Down By Paramount</li>
                 </ul>
                 Photos:
                 <div class="container">
@@ -125,8 +131,7 @@
         </div>
         <hr>
     </section>
-    <section id="projects">
-        <div class="section-title wd-1">Personal Projects:</div>
+    <section id="personal-projects" style="display: none;">
         <hr>
         <div class="subsection-title wd-1">Shipyard Library (12/02/2022-Present)</div>
         <hr>
@@ -173,6 +178,55 @@
             </div>
         </div>
         <hr>
+    </section>
+    <section id="commissions" style="display: none;">
+        <hr>
+        <div class="section-title wd-1">Commissions Status: OPEN</div>
+        <hr>
+
+        <div class="subsection-title wd-1">What I Can Provide (Roblox-Wise)</div>
+        <div class="subsection-content wd-1">
+            <ul>
+                <li>Possible Game Optimizations</li>
+                <li>API Connections (Price Will Vary)</li>
+                <li>Discord<>Roblox Connections (Price Will Vary)</li>
+            </ul>
+        </div>
+        <div class="subsection-title wd-1">What I Can Provide (Discord-Wise)</div>
+        <div class="subsection-content wd-1">
+            <ul>
+                <li>Roblox<>Discord Linking</li>
+                <li>Moderation Bot (Price/Time Will Vary)</li>
+                <li>Economy Bot (Price/Time Will Vary)</li>
+                <li>Special Orders (Price/Time Will Vary)</li>
+            </ul>
+        </div>
+        <div class="subsection-title wd-1">What I Can Provide (Website-Wise)</div>
+        <div class="subsection-content wd-1">
+            <ul>
+                <li>Discord Bot Dashboard (Price/Time Will Vary)</li>
+                <li>I may consider special orders (Price/Time Will Vary)</li>
+            </ul>
+        </div>
+        <div class="subsection-title wd-1">What I Don't Do</div>
+        <div class="subsection-content wd-1">
+            <ul>
+                <li>Admin Systems (Roblox)</li>
+                <li>Anti-Cheat Systems (Roblox)</li>
+                <li>Combat Systems (Roblox)</li>
+                <li>Work that violates ToS of ANY platform</li>
+            </ul>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="subsection-title wd-1">Payment</div>
+        <p class="subsection-content wd-1">
+            My costs will vary depending on what kind of commission you are asking for. If you are unsatisfied with a commission, I will not ask for your money. All payments are done upfront and full refunds are issued if I run into an issue that I am unable to get around such as IRL issues, the customer is requesting one midway through the process, or the customer did not get what they wanted.
+            <br>
+            <br>
+            I prefer paypal as a payment method, but if you would like to give me robux for roblox-based commissions, I will take that as well.
+        </p>
     </section>
 
     <script>
@@ -228,5 +282,23 @@
                 }, time)
             }, time)
         }, time)
+
+        document.getElementById("public-projects-button").onclick = () => {
+            document.getElementById("public-projects").style.display = "block"
+            document.getElementById("personal-projects").style.display = "none"
+            document.getElementById("commissions").style.display = "none"
+        }
+
+        document.getElementById("personal-projects-button").onclick = () => {
+            document.getElementById("public-projects").style.display = "none"
+            document.getElementById("personal-projects").style.display = "block"
+            document.getElementById("commissions").style.display = "none"
+        }
+
+        document.getElementById("commissions-button").onclick = () => {
+            document.getElementById("public-projects").style.display = "none"
+            document.getElementById("personal-projects").style.display = "none"
+            document.getElementById("commissions").style.display = "block"
+        }
     </script>
 </body>
