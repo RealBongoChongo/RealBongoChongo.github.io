@@ -12,7 +12,6 @@
     <header>
         <div class="wd-2">
             <h1 class="main-title" id="main-title">> BungoChungo</h1>
-            <p class="main-title" style="font-size: 20px;" id="student">> Student,</p>
             <p class="main-title" style="font-size: 20px;" id="fullstack">> Full-Stack Developer,</p>
             <p class="main-title" style="font-size: 20px;" id="discordbot">> Discord Bot Developer,</p>
             <p class="main-title" style="font-size: 20px;" id="robloxgame">> Roblox Game Developer</p>
@@ -305,11 +304,6 @@
     </section>
 
     <script>
-        var time = new Date()
-        if (time.getHours() <= 15 && time.getHours() >= 14) {
-            window.location.href = "https://google.com"
-        }
-    
         function iterateString(string, html, delay) {
             for (var i = 0; i < string.length; i++) {
                 setTimeout(function(i, length) {
@@ -324,7 +318,6 @@
         }
 
         const titleText = document.getElementById("main-title")
-        const studentText = document.getElementById("student")
         const fullStack = document.getElementById("fullstack")
         const discordBot = document.getElementById("discordbot")
         const robloxGame = document.getElementById("robloxgame")
@@ -333,8 +326,6 @@
         const titleHTML = titleText.textContent
         titleText.textContent = ""
 
-        const studentHTML = studentText.textContent
-        studentText.textContent = ""
         const fullstackHTML = fullStack.textContent
         fullStack.textContent = ""
         const discordbotHTML = discordBot.textContent
@@ -349,16 +340,13 @@
         time = iterateString(titleHTML, titleText, 100)
 
         setTimeout(function() {
-            time = iterateString(studentHTML, studentText, 50)
+            time = iterateString(fullstackHTML, fullStack, 50)
             setTimeout(function() {
-                time = iterateString(fullstackHTML, fullStack, 50)
+                time = iterateString(discordbotHTML, discordBot, 50)
                 setTimeout(function() {
-                    time = iterateString(discordbotHTML, discordBot, 50)
+                    time = iterateString(robloxgameHTML, robloxGame, 50)
                     setTimeout(function() {
-                        time = iterateString(robloxgameHTML, robloxGame, 50)
-                        setTimeout(function() {
-                            time = iterateString(startrekHTML, startrek, 50)
-                        }, time)
+                        time = iterateString(startrekHTML, startrek, 50)
                     }, time)
                 }, time)
             }, time)
