@@ -8,6 +8,10 @@
     --white: #FFFFFF;
 }
 
+html, body {
+    max-width: 100vw;
+}
+
 body {
     background-color: black;
     color: var(--white);
@@ -17,6 +21,7 @@ body {
     font-style: normal;
     margin: 0;
     font-weight: 300;
+    max-width: 100vw;
 }
 
 header {
@@ -162,10 +167,6 @@ section {
 .card-header > p, .card-header-center > p {
     color: var(--secondary);
     font-size: 15px;
-}
-
-.card-border-purple > .card {
-    /*border-color: rgb(62, 0, 134);*/
 }
 
 .card-content {
@@ -314,7 +315,6 @@ li > b {
 
 .head {
     height: 100vh;
-    width: 100vw;
     
     background-color: var(--dark-blue);
     display: flex;
